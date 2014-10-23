@@ -29,7 +29,7 @@ for i in range(n):
 '''        
 
           
-
+''' 
 a = []
 count = {}
 for i in range(n):
@@ -57,7 +57,34 @@ for i in range(k-1, n):
     
     count[a[pop]] -= 1
     pop += 1
-''''''        
+'''
+a = []
+count = {}
+for i in range(n):
+    temp = input()
+    a.append(temp)
+    if i < k-1:
+        if temp in count:
+            count[temp] += 1
+        else:
+            count[temp] = 1
+    else:
+        pop = 0
+        maxN = None
+        if temp in count:
+            count[temp] += 1
+        else:
+            count[temp] = 1
+        for key in count.keys():
+            if count[key] == 1 and key > maxN:
+                maxN = key
+            if maxN == None:
+                print "Nothing"
+            else:
+                print maxN
+        count[a[pop]] -= 1
+        pop += 1
+      
 
 '''
 for i in range(n-k+1):
