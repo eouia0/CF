@@ -1,50 +1,32 @@
-import sys
-An = ord('A')
+dic = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 def fromRXCY(s):
-    ss = s.split("R")[1].split("C")
-    row = int(ss[0])
-    col = int(ss[1])
-    #print "fromRXCY", row, col
-    c = []
-    while col > 0:
-        temp = col % 26
-        if temp == 0:
-            c.append("Z")
-        else:
-            c.append(chr(temp + An -1))
-        col //= 26
-    c.reverse()
-    return "".join(c) + str(row)
+    [R,C] = s.split("C")
+    sol = ""
+    c = int(C)
+    while c != 0:
+        temp = c % 26 - 1
+        if temp == -1:
+            temp = 25
+        sol = dic[temp] + sol
+        c = c // 26
+    
+    return sol + R
 
 def toRXCY(s):
-    col = s.rstrip("0123456789")
-    row = s[len(col):]
-    #print "toRXCY", row, col
     c = 0
-    now = 1
-    for i in xrange(len(col)-1, -1, -1):
-        c += (ord(col[i]) - An + 1) * now
-        now *= 26
-    return "R" + row + "C" + str(c)
+    r = ""
+    for i in range(len(s)):
+        if not s[i].isdigit():
+            c = 26*c + ord(s[i]) - ord("A")+1
+        else:
+            break
     
-#print fromRXCY("R23C55")
-#print toRXCY("BC23")
+    return "R"+s[i:]+"C"+str(c)
 
-
-n = int(sys.stdin.readline())
-for i in xrange(n):
-    s = sys.stdin.readline().strip()
-    #print s, s[0], s[1]
-    if s[0] == "R" and s[1].isdigit():
-        print fromRXCY(s)
+n = input()
+for i in range(n):
+    s = raw_input()
+    if s[0] == "R":
+        print fromRXCY(s[1:])
     else:
         print toRXCY(s)
-'''
-n = 1
-for i in xrange(n):
-    s = "R23C55"
-    if s[0] == "R" and s[1] in '0123456789':
-        print fromRXCY(s)
-    else:
-        print toRXCY(s)
-'''

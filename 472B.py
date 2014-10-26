@@ -1,0 +1,1 @@
+a, b = raw_input().split()
